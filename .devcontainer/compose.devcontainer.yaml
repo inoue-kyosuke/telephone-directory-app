@@ -1,0 +1,4 @@
+# Dev Container 用の差分: 開発サーバーは自動起動せず、ターミナルから npm run dev で起動する
+services:
+  app:
+    command: ["sleep", "infinity"]
