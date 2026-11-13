@@ -1,0 +1,23 @@
+{
+  "name": "call-memo-book",
+  "dockerComposeFile": ["../compose.yaml", "compose.devcontainer.yaml"],
+  "service": "app",
+  "workspaceFolder": "/app",
+  "remoteUser": "node",
+  // 依存パッケージを揃え、ローカル D1 にマイグレーションを適用しておく
+  "postCreateCommand": "node scripts/ensure-deps.ts && npm run db:migrate:local",
+  "forwardPorts": [8787],
+  "portsAttributes": {
+    "8787": { "label": "wrangler dev", "onAutoForward": "notify" }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["biomejs.biome"],
+      "settings": {
+        "editor.defaultFormatter": "biomejs.biome",
+        "editor.formatOnSave": true,
+        "typescript.tsdk": "node_modules/typescript/lib"
+      }
+    }
+  }
+}
