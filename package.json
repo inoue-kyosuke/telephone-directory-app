@@ -1,0 +1,40 @@
+{
+  "name": "call-memo-book",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "setup": "node scripts/setup.ts",
+    "dev": "wrangler dev --ip 0.0.0.0 --port 8787",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local",
+    "db:seed:local": "wrangler d1 execute DB --local --file=./seed/seed.sql",
+    "deploy": "node scripts/deploy.ts",
+    "destroy": "node scripts/destroy.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "wrangler types --strict-vars=false && tsc --noEmit && tsc --noEmit -p test && tsc --noEmit -p scripts",
+    "cf-typegen": "wrangler types --strict-vars=false",
+    "lint": "biome check .",
+    "format": "biome check --write ."
+  },
+  "dependencies": {
+    "hono": "4.13.13",
+    "jose": "6.2.12"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.15",
+    "@cloudflare/vitest-plugin": "1.4.0",
+    "@types/node": "24.19.2",
+    "jsonc-parser": "3.3.1",
+    "typescript": "6.0.3",
+    "vitest": "4.1.11",
+    "wrangler": "4.149.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "workerd@1.20261006.1": true
+  }
+}

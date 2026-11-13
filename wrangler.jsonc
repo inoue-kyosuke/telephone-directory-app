@@ -1,0 +1,39 @@
+// Wrangler 設定ファイル
+// https://developers.cloudflare.com/workers/wrangler/configuration/
+//
+// - account_id はここに書かず、環境変数 CLOUDFLARE_ACCOUNT_ID で指定する。
+// - name / d1_databases の database_name・database_id は `npm run setup` が書き込む。
+//   （your-worker-name / 0000... はプレースホルダ。ローカル開発はこのままでも動く）
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "call-memo-book",
+  "main": "src/index.tsx",
+  "compatibility_date": "2026-10-13",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // 勉強会中は workers.dev で公開し、Access アプリケーションで保護する（docs/cloudflare-setup.md）
+  "workers_dev": true,
+  // プレビュー URL は Access アプリケーションの対象外になるため無効にする
+  "preview_urls": false,
+
+  "observability": {
+    "enabled": true,
+  },
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "call-memo-book-db",
+      "database_id": "9c15448c-a7dc-47bf-ae91-c90dcf79cfa2",
+      "migrations_dir": "migrations",
+    },
+  ],
+
+  // デプロイ先の環境依存値。ローカルでは .dev.vars の値で上書きされる。
+  // ACCESS_TEAM_DOMAIN / ACCESS_AUD が空のままだと、すべてのリクエストを拒否する（フェイルクローズ）。
+  "vars": {
+    "ENVIRONMENT": "production",
+    "ACCESS_TEAM_DOMAIN": "summer-block-0388.cloudflareaccess.com",
+    "ACCESS_AUD": "876fc623c5ea67ee810556f5e432b951cbe140cedc3559407d1a9b6b3602ce2c",
+  },
+}

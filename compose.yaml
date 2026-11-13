@@ -1,0 +1,23 @@
+# docker compose up で開発サーバーを起動する
+# VS Code Dev Containers もこのファイルを使う（.devcontainer/devcontainer.json）
+services:
+  app:
+    build: .
+    command: ["sh", "-c", "node scripts/ensure-deps.ts && npm run db:migrate:local && npm run dev"]
+    ports:
+      - "8787:8787"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      CHOKIDAR_USEPOLLING: ${CHOKIDAR_USEPOLLING:-false}
+    volumes:
+      - .:/app
+      # node_modules はホストと混在させない
+      - node_modules:/app/node_modules
+      # ローカル D1 などの状態を永続化する
+      - wrangler_state:/app/.wrangler
+
+volumes:
+  node_modules:
+  wrangler_state:

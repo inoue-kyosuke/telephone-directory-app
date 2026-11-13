@@ -1,0 +1,10 @@
+# ローカル開発用の変数（wrangler dev が読み込む）
+# cp .dev.vars.example .dev.vars でコピーして使う。.dev.vars はコミットしない。
+
+# local のときだけ Access の検証をスキップし、DEV_USER_EMAIL のユーザーとして扱う
+ENVIRONMENT=local
+DEV_USER_EMAIL=dev-user@example.com
+
+# ローカルでは使わない（デプロイ先の値は wrangler.jsonc の vars で設定する）
+ACCESS_TEAM_DOMAIN=
+ACCESS_AUD=
