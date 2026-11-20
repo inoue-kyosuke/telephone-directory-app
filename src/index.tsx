@@ -3,6 +3,7 @@ import { csrf } from "hono/csrf";
 import { logger } from "hono/logger";
 import { secureHeaders } from "hono/secure-headers";
 import { accessAuth } from "./middleware/access.ts";
+import { mock } from "./mock/routes.tsx";
 import { items } from "./routes/items.tsx";
 import type { AppEnv } from "./types.ts";
 
@@ -16,5 +17,7 @@ app.use(accessAuth());
 app.use(csrf());
 
 app.route("/", items);
+// 画面モック（STEP1 仕様書 5.8）
+app.route("/mock", mock);
 
 export default app;
