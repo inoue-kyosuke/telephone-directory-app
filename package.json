@@ -18,7 +18,8 @@
     "typecheck": "wrangler types --strict-vars=false && tsc --noEmit && tsc --noEmit -p test && tsc --noEmit -p scripts",
     "cf-typegen": "wrangler types --strict-vars=false",
     "lint": "biome check .",
-    "format": "biome check --write ."
+    "format": "biome check --write .",
+    "check": "npm run lint && npm run typecheck && npm test"
   },
   "dependencies": {
     "hono": "4.13.13",

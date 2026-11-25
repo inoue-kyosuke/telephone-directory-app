@@ -13,5 +13,11 @@
     "enabled": true,
     "rules": { "preset": "recommended" }
   },
+  "overrides": [
+    {
+      "includes": ["**/*.jsonc"],
+      "json": { "parser": { "allowTrailingCommas": true }, "formatter": { "trailingCommas": "all" } }
+    }
+  ],
   "assist": { "actions": { "source": { "organizeImports": "on" } } }
 }
